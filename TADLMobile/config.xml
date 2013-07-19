@@ -18,16 +18,16 @@
  under the License.
 -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
-        id        = "io.cordova.helloCordova"
-        version   = "2.0.0">
-    <name>Hello Cordova</name>
+        id        = "org.TADL.TADLMobile"
+        version   = "1.0.0i">
+    <name>TADL Mobile</name>
 
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        TADL Mobile app for iOS
     </description>
 
-    <author href="http://cordova.io" email="dev@cordova.apache.org">
-        Apache Cordova Team
+    <author href="http://www.tadl.org" email="tech@tadl.org">
+        Traverse Area District Library
     </author>
 
     <access origin="*"/>
@@ -40,7 +40,6 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
-    <preference name="EnableLocation" value="false" /><!-- DEPRECATED -->
     <preference name="EnableViewportScale" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value=".25" />
@@ -51,28 +50,11 @@
     <preference name="ShowSplashScreenSpinner" value="true" />
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="TopActivityIndicator" value="gray" />
+    <preference name="orientation" value="portrait" />
 
 
-    <feature name="Geolocation">
-      <param name="ios-package" value="CDVLocation"/>
-    </feature>
     <feature name="Device">
       <param name="ios-package" value="CDVDevice"/>
-    </feature>
-    <feature name="Accelerometer">
-      <param name="ios-package" value="CDVAccelerometer"/>
-    </feature>
-    <feature name="Compass">
-      <param name="ios-package" value="CDVLocation"/>
-    </feature>
-    <feature name="Media">
-      <param name="ios-package" value="CDVSound"/>
-    </feature>
-    <feature name="Camera">
-      <param name="ios-package" value="CDVCamera"/>
-    </feature>
-    <feature name="Contacts">
-      <param name="ios-package" value="CDVContacts"/>
     </feature>
     <feature name="File">
       <param name="ios-package"  value="CDVFile"/>
@@ -80,26 +62,8 @@
     <feature name="NetworkStatus">
       <param name="ios-package" value="CDVConnection"/>
     </feature>
-    <feature name="Notification">
-      <param name="ios-package" value="CDVNotification"/>
-    </feature>
-    <feature name="FileTransfer">
-      <param name="ios-package" value="CDVFileTransfer"/>
-    </feature>
-    <feature name="Capture">
-      <param name="ios-package" value="CDVCapture"/>
-    </feature>
-    <feature name="Battery">
-      <param name="ios-package" value="CDVBattery"/>
-    </feature>
     <feature name="SplashScreen">
       <param name="ios-package" value="CDVSplashScreen"/>
-    </feature>
-    <feature name="Echo">
-      <param name="ios-package" value="CDVEcho"/>
-    </feature>
-    <feature name="Globalization">
-      <param name="ios-package" value="CDVGlobalization"/>
     </feature>
     <feature name="InAppBrowser">
       <param name="ios-package" value="CDVInAppBrowser"/>
@@ -110,7 +74,4 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage"/>
     </feature>
-    <!-- Deprecated plugins element. REmove in 3.0 -->
-    <plugins>
-    </plugins>
 </widget>
