@@ -33,10 +33,11 @@ $(document).ready(function() {
         }
     });
     
-//    $('#search').click(function() {
-//        getResults();
-//        console.log('well i tried');
-//    });
+});
+
+$(document).on("click","#search",function() {
+    getResults();
+    console.log('hello there');
 });
 
 function checkstatus() {
