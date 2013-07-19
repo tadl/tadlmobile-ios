@@ -3,14 +3,16 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "org.tadl.tadl-mobileandroid"
-        version   = "0.1.1">
+        id        = "org.TADL.TADLMobile"
+        version   = "1.0.0i">
 
     <name>TADL BETA</name>
 
     <description>
-        TADL Mobile app for Android
+        TADL Mobile app for iOS
     </description>
+    
+    <content src='index.html' />
     
     <preference name="orientation" value="portrait" />
     
