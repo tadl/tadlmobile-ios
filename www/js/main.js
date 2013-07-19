@@ -33,8 +33,9 @@ $(document).ready(function() {
         }
     });
     
-    $('#search').keydown(function() {
+    $('#search').click(function() {
         getResults();
+        console.log('well i tried');
     });
 });
 
