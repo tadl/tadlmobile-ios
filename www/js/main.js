@@ -33,7 +33,9 @@ $(document).ready(function() {
         }
     });
     
-    $('#search').click(getResults);
+    $('#search').click(function() {
+        getResults();
+    });
 });
 
 function checkstatus() {
