@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "org.tadl.tadl-mobileandroid"
+        version   = "0.1.1">
+
+    <name>TADL BETA</name>
+
+    <description>
+        TADL Mobile app for Android
+    </description>
+    
+    <preference name="orientation" value="portrait" />
+    
+    <access origin="https://fbcdn.net/" subdomains="true" />
+    <access origin="https://akamaihd.net/" subdomains="true" />
+    <access origin="https://facebook.com" subdomains="true" />
+    <access origin="https://tadl-ilscatcher.herokuapp.com" />
+    <access origin="https://via.tadl.org/" browserOnly="true" />
+    <access origin="http://via.tadl.org/" browserOnly="true" /> 
+</widget>

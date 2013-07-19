@@ -1,42 +1,436 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/holo-base-elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/holo-light-elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/holo-base-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="css/holo-light-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.slidepanel.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="js/holo-touch.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.slidepanel.js"></script>
+    <script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/handlebars.js"></script>
+    <script type="text/javascript" src="js/jquery-barcode.min.js"></script>  
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery.dateFormat-1.0.js"></script>
+    <script type="text/javascript" src="js/jquery.history.js"></script>
+    <script type="text/javascript" src="js/staterouter.js"></script>    
+    <script type="text/javascript" src="cordova.js"></script>
+<script>
+    document.addEventListener("deviceready", function() {
+        // before this event, window.open likely won't work properly
+    }, false);
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        document.addEventListener("backbutton", onBackKeyDown, false);
+    }
+    function onBackKeyDown() {
+        var state = History.getState();
+        if (pause === "chill") {
+            return;
+        } 
+        if (state.data.action === "showmain") {
+            navigator.app.exitApp();
+        } else {
+            $(function reversehistory() {
+                if (breakme === "yes") {
+                    $('#results').hide();
+                    setTimeout(reversehistory, 500);
+                    pause = "chill";
+                } else {
+                    pause = "cool";
+                    History.back();
+                };
+            });
+        } 
+    }
+    window.onpopstate = function(event) {
+        if (!event.state) return;
+        $('#results').hide();
+        var state = History.getState();
+        var message = JSON.stringify(event.state);
+        window.setTimeout(goBack,50); 
+        function goBack() {
+            if (state.data.action === "showholds") {
+                showholds();
+                $('#results').show();
+            }
+            if (state.data.action === "showfeatured") {
+                showfeatured();
+                $('#results').show();
+            }
+            if (state.data.action === "showcheckouts") {
+                showcheckouts();
+                $('#results').show();
+            }
+            if (state.data.action === "showpickups") {
+                showpickups();
+                $('#results').show();
+            }
+            if (state.data.action === "showfeatured") {
+                showfeatured();
+                $('#results').show();
+            }
+            if (state.data.action === "showevents") {
+                showevents();
+                $('#results').show();
+            }
+            if (state.data.action === "showlocations") {
+                showlocations();
+                $('#results').show();
+            }
+            if (state.data.action === "facebookfeed") {
+                facebookfeed();
+                $('#results').show();
+            }
+            if (state.data.action === "viewitem") {
+                viewitem(state.data.record_id);
+                $('#results').show();
+            }
+            if (state.data.action === "showmain") {
+                showmain();
+                $('#results').show();
+            }
+            if (state.data.action === "getsearch") {
+                getsearch(state.data.query, state.data.mt, state.data.avail, state.data.location);
+                getResults();
+                $('#results').show();
+            }
+            if (state.data.action === "showcard") {
+                showcard();
+                $('#results').show();
+            }
+        }
+    }
+</script>
+<title>TADL Mobile Beta</title>
+<style type="text/css">
+{
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+}
+</style>
+</head>
+<body>
+<header class="holo-actionBar">
+    <section class="searchform">
+        <div style="width:100%;">
+            <button id="account" class="bigger" style="position:fixed;right:0;top:0;" onclick="openForm()"><img src="img/account.png" alt="" width="25" height="25" /></button>
+            <a href="menu.html" data-slidepanel="panel"><img class="left logo pointer" src="img/tinylogo.png" width="30" height="30" alt="" /></a>
+            <input class="search_box left" type="text" placeholder="Search..." id="term" />
+            <button id="search" class="left biggerer">GO</button>
+            <button id="ssettings" class="left bigger" onclick="openSearch_options()"><img src="img/settings-gear.png" alt="" width="25" height="25" /></button>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+        <div class="clearfix"></div>
+        <div id="search_options">
+            <input class="left" type="checkbox" id="available" value="false" />
+            <div class="left five">ONLY AVAILABLE</div>
+            <div class="left five"></div>
+            <select class="left five" id="mediatype">
+                <option value="ALL FORMATS">ALL FORMATS</option>
+                <option value="BOOKS">BOOKS</option>
+                <option value="MOVIES">MOVIES</option>
+                <option value="MUSIC">MUSIC</option>
+                <option value="VIDEO GAMES">VIDEO GAMES</option>
+            </select>
+            <div class="left five"></div>
+            <select class="left five" id="location">
+                <option value="22">ALL LOCATIONS</option>
+                <option value="23">WOODMERE</option>
+                <option value="25">KINGSLEY</option>
+                <option value="24">INTERLOCHEN</option>
+                <option value="27">FIFE LAKE</option>
+                <option value="28">EAST BAY</option>
+            </select>
+        </div>
+    </section>
+  
+    <div id="login_form">
+        Username: <input type="text" id="username" /><br />
+        Password: <input type="password" id="pword" /><br />
+        <button id="login" onclick="login()">Login</button>
+        <span id="login_msg"></span>
+    </div>
+</header>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-slidepanel]').slidepanel({
+            orientation: 'left',
+            mode: 'overlay'
+        });
+    });
+</script>
+<div id="status-messages"></div>
+<div id="search-params"></div>
+<div id="results"></div>
+
+<script id="featured-template" type="text/template">
+    {{#nodes}}
+        <img onclick="viewitem({{node.item}});return false;" onerror="this.style.display='none';" src="https://catalog.tadl.org/opac/extras/ac/jacket/medium/r/{{node.item}}" height="100" />
+    {{/nodes}}
+</script>
+
+<script id="result-details-template" type="text/template"><!-- // to display a record from slider -->
+    {{#:items}}
+        <div class="shadow result">
+        <img class="result_img" onload="img_check(this);" onerror="img_error(this);" src="{{make_https :item.:image}}">
+        <span class="title"><img src="{{make_https :item.:format_icon}}"> {{:item.:title}}</span><br/>
+        {{#if :item.:author}}
+            <span class="author">{{:item.:author}}, </span>
+        {{/if}}
+        {{:item.:record_year}}
+        <div class="summary relative">{{:item.:summary}}</div>
+        <div class="clearfix"></div>
+        <div class="bottomstuff">
+        <div class="more">
+            {{#compare :item.:copies_available null operator="!="}} 
+                {{:item.:copies_available}} of {{:item.:copies_total}} available<br/>
+                <a class="actionlink" id="place_hold_{{:item.:record_id}}" onclick="pre_hold({{:item.:record_id}})">Place Hold</a> 
+            {{/compare}}
+            {{#compare :item.:copies_available null operator="=="}}
+                <a class="actionlink external" onclick="navigator.app.loadUrl('{{:item.:eresource}}', {openExternal: true});">View Online</a>
+            {{/compare}}
+        </div></div>
+        <div class="clearfix"></div>
+        <div>
+        {{#compare :item.:copies_available 0 operator="!="}}
+            {{#compare :item.:copies_available null operator="!="}}
+                <table><tr>
+                <td><strong>Library</strong></td>
+                <td><strong>Location</strong></td>
+                <td><strong>Call #</strong></td></tr>
+            {{/compare}}
+        {{/compare}}
+    {{/:items}}
+    {{#:shelvinglocations}}
+        {{#if :shelf_location.:library}}
+            <tr>
+            <td>{{:shelf_location.:library}}</td>
+            <td>{{:shelf_location.:shelving_location}}</td>
+            <td>{{:shelf_location.:call_number}}</td>
+            </tr>
+        {{/if}}
+    {{/:shelvinglocations}}
+    </table>
+    </div>
+    <div class="clearfix"></div>
+    <a onclick="showfeatured();" class="actionlink">Back to Featured Items</a>
+    <div id="{{:item.:record_id}}shelf" style="display:none;"></div>
+    </div>
+</script>
+
+<script id="results-template" type="text/template">
+    {{#:items}}
+        <div class="shadow result">
+        <div onclick="showmore({{:item.:record_id}});" style="cursor:pointer;">
+        <img class="result_img" onload="img_check(this);" onerror="img_error(this);" src="{{make_https :item.:image}}">
+        <span class="title"><img src="{{make_https :item.:format_icon}}"> {{:item.:title}}</span><br/>
+        {{#if :item.:author}}
+            <span class="author">{{:item.:author}}, </span>
+        {{/if}}
+        {{:item.:record_year}}
+        <div id="showmore-{{:item.:record_id}}" class="viewmore">more details</div>
+        </div>
+        <div id="{{:item.:record_id}}" style="display:none;"></div>
+        <div id="{{:item.:record_id}}-loading"></div> 
+        <div class="clearfix"></div>
+        </div><!-- //shadow result -->
+    {{/:items}}
+</script>
+
+<script id="more_details-template" type="text/template">
+    {{#:items}}
+        <div class="summary" style="position:relative">{{:item.:summary}}</div>
+        <div class="clearfix"></div>
+        <div class="bottomstuff">
+        <div class="more">
+            {{#compare :item.:copies_available null operator="!="}} 
+                {{:item.:copies_available}} of {{:item.:copies_total}} available<br/>
+                <a class="actionlink" id="place_hold_{{:item.:record_id}}" onclick="pre_hold({{:item.:record_id}})">Place Hold</a> 
+            {{/compare}}
+            {{#compare :item.:copies_available null operator="=="}}
+                <a class="actionlink external" onclick="navigator.app.loadUrl('{{:item.:eresource}}', {openExternal: true});">View Online</a>
+            {{/compare}}
+        </div>
+        </div>
+        <div class="clearfix"></div>
+        <div>
+        {{#compare :item.:copies_available 0 operator="!="}}
+            {{#compare :item.:copies_available null operator="!="}}
+                <table><tr>
+                <td><strong>Library</strong></td>
+                <td><strong>Location</strong></td>
+                <td><strong>Call #</strong></td></tr>
+            {{/compare}}
+        {{/compare}}
+    {{/:items}}
+    {{#:shelvinglocations}}
+        {{#if :shelf_location.:library}}
+            <tr>
+            <td>{{:shelf_location.:library}}</td>
+            <td>{{:shelf_location.:shelving_location}}</td>
+            <td>{{:shelf_location.:call_number}}</td>
+            </tr>
+        {{/if}}
+    {{/:shelvinglocations}}
+    </table>
+    </div>	
+    <div class="clearfix"></div>
+    <div id="{{:item.:record_id}}shelf" style="display:none;"></div>
+</script>
+
+<script id="shelf-template" type="text/template">
+    <table>
+    <th>Library:</th>
+    <th>Status:</th>
+    <th>Shelving Location:</th>
+    <th>Call Number:</th>
+    {{#:items}}
+        <tr>
+        <td>{{:item.:library}}</td>
+        <td>{{:item.:available}}</td>
+        <td>{{:item.:shelving_location}}</td>
+        <td>{{:item.:call_number}}</td>
+        </tr>
+    {{/:items}}
+    </table>
+</script>
+
+<script id="logedin-template" type="text/template">
+    {{#:users}}
+        <div>
+        {{:user.:name}}<br />
+        <div class="accountlinks">
+        <a class="button" onclick="showcheckouts()">Checkouts: {{:user.:checkouts}}</a><br />
+        <a class="button" onclick="showholds()">Holds: {{:user.:holds}}</a><br />
+        <a class="button" onclick="showpickups()">Ready for Pickup: {{:user.:pickups}}</a><br />
+        </div>
+        Fines: {{:user.:fines}}
+        </div>
+        <button id="login" onclick="logout()">Logout</button>
+        <button id="showbarcode" onclick="showcard()">Card</button>
+    {{/:users}}
+</script>
+
+<script id="showcheckedout-template" type="text/template">
+    {{#:checkouts}}
+        <div class="shadow result">
+        <img src="{{make_https :checkout.:image}}" onload="img_check(this);" onerror="img_error(this);" class="result_img">
+        <img src="{{make_https :checkout.:format_icon}}"><span class="title">{{:checkout.:name}}</span><br/>
+        <div id="{{:checkout.:barcode}}">
+        Due on: {{:checkout.:due_date}}<br/>
+        Remaining Renewals: {{:checkout.:renew_attempts}}<br/>
+        <div class="clearfix"></div>
+        <a class="actionlink" onclick="renew(this, {{:checkout.:checkout_id}}, {{:checkout.:barcode}})">Renew this item</a>
+        </div> 
+        </div>
+    {{/:checkouts}}
+</script>
+
+<script id="showevents-template" type="text/template">
+    {{#nodes}}
+        <div class="shadow result pointer" onclick="unhide({{node.nid}})">
+        <div class="result_img">
+        {{#if node.image}}
+            <img src="{{make_https node.image}}">
+        {{else}}
+            <img src="img/clocktower100.png">
+        {{/if}}
+        </div><span style="font-size:1.3em;">{{node.title}}</span><br>
+        <strong>{{node.event-date}} - {{node.location}}</strong><br>
+        <span id="more{{node.nid}}" class="viewmore">more details</span>
+        <span id="{{node.nid}}" style="display:none;">{{node.body}}</span>
+        </div>
+    {{/nodes}}
+</script>
+
+<script id="showlocations-template" type="text/template">
+    {{#nodes}}
+        <div class="shadow result pointer" onclick="unhide('{{node.shortname}}')">
+        <img class="location_img" src="https://www.tadl.org/sites/default/files/libraryphotos/{{node.shortname}}-200x125.jpg">{{node.title}}
+        <h3 style="padding:0;margin:0;">{{node.fullname}}</h3>
+        {{node.address}}<br/>
+        {{node.citystatezip}}<br/>
+        <a href="tel:{{node.phone}}">{{node.phone}}</a><br/>
+        <span id="more{{node.shortname}}" class="viewmore">view hours</span>
+        <span id="{{node.shortname}}" style="display:none;">
+        <table>
+        <tr><td>Sunday</td><td>{{node.sunday}}</td></tr>
+        <tr><td>Monday</td><td>{{node.monday}}</td></tr>
+        <tr><td>Tuesday</td><td>{{node.tuesday}}</td></tr>
+        <tr><td>Wednesday</td><td>{{node.wednesday}}</td></tr>
+        <tr><td>Thursday</td><td>{{node.thursday}}</td></tr>
+        <tr><td>Friday</td><td>{{node.friday}}</td></tr>
+        <tr><td>Saturday</td><td>{{node.saturday}}</td></tr>
+        </table>
+        </div>
+        </div>
+    {{/nodes}}
+</script>
+
+
+<script id="facebookfeed-template" type="text/template">
+    {{#data}}
+        {{#compare from.id 6113436733 operator="=="}}
+            {{#compare application.name "Photos" operator="!="}}
+                {{#compare privacy.value "" operator="!="}}
+                    <div class="shadow result">
+                        <div class="fb_img">
+                        {{#if picture}}
+                            {{#if object_id}}
+                                <img src="https://graph.facebook.com/{{object_id}}/picture">
+                            {{else}}
+                                <img src="{{make_https picture}}">
+                            {{/if}}
+                        {{else}}
+                            <img src="img/clocktower100.png">
+                        {{/if}}
+                        </div>
+                        <span class="linkable" style="font-size:14px;">{{message}}</span><br/>Posted on <span class="shortDateFormat">{{created_time}}</span>
+                        <span style="font-size:13px; font-style:italic;">{{description}}</span><br/>
+                        {{#if caption}}
+                            {{#if link}}
+                                <a href="{{link}}" style="font-decoration: none; font-size: 12px;">See More</a>
+                            {{/if}}
+                        {{/if}}
+                        <span id="{{node.nid}}" style="display:none;">{{node.body}}</span>
+                    </div>
+                {{/compare}} 
+            {{/compare}} 
+        {{/compare}}
+    {{/data}}
+</script>
+
+
+<script id="showholds-template" type="text/template">
+    {{#:holds}}
+        <div id="hold_{{:hold.:hold_id}}" class="shadow result">
+        <img class="result_img" src="{{make_https :hold.:image}}" onload="img_check(this);" onerror="img_error(this);">
+        <img src="{{make_https :hold.:format_icon}}"><span class="title">{{:hold.:name}}</span><br/>
+        Pickup Location: {{:hold.:pickup_location}}<br/>
+        Status: {{:hold.:status}}<br/>
+        <a class="actionlink" id="cancel_hold_{{:hold.:hold_id}}" onclick="pre_cancelhold(this, {{:hold.:hold_id}})">Cancel Hold</a>
+        </div>
+    {{/:holds}}
+</script>
+
+<script id="renew-template" type="text/template">
+    {{#:checkouts}}
+        Due on: {{:checkout.:due_date}}<br/>
+        Remaining Renewals: {{:checkout.:renew_attempts}}<br/>
+    {{/:checkouts}}
+        <a onclick="return false;">{{:response}}</a>
+</script>
+
+<div class="load_more">
+    <div id="loadmoretext"></div>
+</div>
+
+</body>
 </html>
