@@ -40,10 +40,10 @@ $(document).ready(function() {
 });
 
 function checkstatus() {
-      var networkState = navigator.network.connection.type;
-      if (networkState == 'none') {
-        $('#status-messages').html('<div style="text-align:center; margin-top: 5px; margin-bottom: 10px; font-size: 20px; color: #ff201a ;">Network Connection Required</div>');
-     } else {
+//      var networkState = navigator.network.connection.type;
+//      if (networkState == 'none') {
+//        $('#status-messages').html('<div style="text-align:center; margin-top: 5px; margin-bottom: 10px; font-size: 20px; color: #ff201a ;">Network Connection Required</div>');
+//     } else {
         $.get(ILSCATCHER_INSECURE_BASE + "/main/checkupdates.json?version_id=" + version_id + "&platform=" + platform, function(data) {
             var message = data.message
             var update_link = data.update_link 
@@ -51,7 +51,7 @@ function checkstatus() {
                 $('#status-messages').html('<div style="text-align:center; margin-top: 5px; margin-bottom: 10px;"><a class="button" href="'+ update_link +'">'+ data.message +'</a></div>');
             }
         });
-   } 
+//   } 
 }
 
 function loadmore() {
