@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="css/holo-light-elements.css" />
     <link rel="stylesheet" type="text/css" href="css/holo-base-widgets.css" />
     <link rel="stylesheet" type="text/css" href="css/holo-light-widgets.css" />
-    <link rel="stylesheet" type="text/css" href="css/jquery.slidepanel.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.slidepanel.css" />
     <script type="text/javascript" src="js/holo-touch.js"></script>
     <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="js/jquery.slidepanel.js"></script>
@@ -121,7 +121,7 @@
     <section class="searchform">
         <div style="width:100%;">
             <button id="account" class="bigger" style="position:fixed;right:0;top:0;" onclick="openForm()"><img src="img/account.png" alt="" width="25" height="25" /></button>
-            <a href="menu.html" data-slidepanel="panel"><img class="left logo pointer" src="img/tinylogo.png" width="30" height="30" alt="" /></a>
+            <a href="menu.html" class="panel"><img class="left logo pointer" src="img/tinylogo.png" width="30" height="30" alt="" /></a>
             <input class="search_box left" type="text" placeholder="Search..." id="term" />
             <button id="search" class="left biggerer">GO</button>
             <button id="ssettings" class="left bigger" onclick="openSearch_options()"><img src="img/settings-gear.png" alt="" width="25" height="25" /></button>
@@ -160,7 +160,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('[data-slidepanel]').slidepanel({
+        $('.panel').slidepanel({
             orientation: 'left',
             mode: 'overlay'
         });
