@@ -364,6 +364,7 @@ function render_dash(data) {
     var template = Handlebars.compile($('#logedin-template').html());
     var info = template(data);
     $('#login_form').html(info);
+    console.log('hello world');
 }
 
 function showcheckouts() { 
